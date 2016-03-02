@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C11//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Processing Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        var car1;
+        var car2;
+        var car3;
+        var car4;
+        var car5;
+        var mx;
+        var started;
+        var moveFrog;
+        var mouseMoved;
+        var frogSpeedX = 0;
+        var frogSpeedY = 0;
+        var frogX = 2;
+        var frogY = 2;
+        var cars = [];
+
+
+        function setup() {
+            createCanvas(500, 500);
+            noCursor();
+            car2 = new Car();
+            car3 = new Car2();
+            car4 = new Car2();
+            car5 = new Car2();
+            //Frog = new drawFrog();
+            //frog1 = new Frog();
+            cars.push(new Car2());
+            cars.push(new Car());
+            cars.push(new Car());
+            cars.push(new Car());
+            cars.push(new Car());
+        }
+
+        function draw() {
+            if (started) {
+                background(178, 178, 178);
+                fill(255, 0, 0);
+
+
+                for (var i = 0; i < cars.length; i++) {
+                    cars[i].move();
+                    cars[i].display();
+                    if (cars[i].x) {
+
+
+                        noLoop
+                    }
+
+                    mx = mouseX;
+                    moveFrog();
+                    drawFrog();
+
+                }
+                else {
+                    background(255, 255, 255);
+                    fill(100, 100, 100);
+                    text("Click to begin! Use z to add cars and s to get rid of some!", width / 6, height / 3);
+                }
+            }
+        }
+
+        function mousePressed() {
+            started = true;
+        }
+
+        function Car() {
+            random(250, 250);
+            this.x = random(width);
+            this.y = random(height);
+            this.speed = random(20);
+
+            this.move = function() {
+                this.x += this.speed;
+                if (this.x > width) {
+                    this.x = 0;
+                }
+            }
+            this.display = function() {
+                rect(this.x, this.y, 100, 50);
+            }
+        }
+
+        function Car2() {
+            this.x = random(width);
+            this.y = random(height);
+            this.speed = random(-10);
+
+            this.move = function() {
+                this.x -= this.speed;
+                if (this.x > width) {
+                    this.x = 0;
+                }
+            }
+
+            this.display = function() {
+                rect(this.x, this.y, 100, 50);
+            }
+        }
+
+        function drawFrog() {
+            fill(140, 140, 0);
+            stroke(10);
+            ellipse(mx, mouseY, 50, 50);
+
+        }
+
+
+        function keyPressed() {
+            if (key == "s" || key == "S") {
+                cars.splice(3, 1);
+
+            }
+            if (key == "z" || key == "Z") {
+                cars.push(new Car2());
+            }
+            console.log(cars);
+        }
+
+
+        // function checkCollide(){
+        // if (Car = frogSpeedX || frogSpeedY){
+        //     text("GAME OVER", width / 2, height / 2);
+        //     noLoop();
+        //  }
+        // }
+
+
+
+        function moveFrog() {
+            frogX = frogX + frogSpeedX;
+            frogY = frogY + frogSpeedY;
+
+            console.log("frogSpeedX: " + frogSpeedX +
+                ", frogSpeedY: " + frogSpeedY);
+        }
+    </script>
+</head>
+
+<body>
+<form><input TYPE="button" onClick="history.go(0)" value="Reset"></form>
+</body>
+
+</html>
